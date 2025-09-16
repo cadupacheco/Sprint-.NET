@@ -1,52 +1,87 @@
-using API_NET.Data;
-using API_NET.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Sprint1.Dtos;
+using Sprint1.Entities;
+using Sprint1.Repositories;
 
-namespace API_NET.Controllers
+namespace Sprint1.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class ModeloController : ControllerBase
     {
-        private readonly AppDbContext _context;
-        public ModeloController(AppDbContext context) { _context = context; }
+        private readonly IModeloRepository _repo;
+
+        public ModeloController(IModeloRepository repo)
+        {
+            _repo = repo;
+        }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Modelo>>> GetAll() =>
-            await _context.Modelos.ToListAsync();
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Modelo>> GetById(int id)
+        public async Task<ActionResult<IEnumerable<ModeloReadDto>>> GetModelos([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var modelo = await _context.Modelos.FindAsync(id);
-            return modelo is null ? NotFound() : modelo;
+            var modelos = await _repo.GetModelosPagedAsync(pageNumber, pageSize);
+            var total = await _repo.GetCountAsync();
+            Response.Headers.Add("X-Total-Count", total.ToString());
+
+            var dtos = modelos.Select(m => new ModeloReadDto
+            {
+                Id = m.Id,
+                Nome = m.Nome,
+                Fabricante = m.Fabricante
+            }).ToList();
+
+            return Ok(dtos);
+        }
+
+        [HttpGet("{id}", Name = "GetModeloById")]
+        public async Task<ActionResult<ModeloReadDto>> GetModeloById(int id)
+        {
+            var modelo = await _repo.GetModeloByIdAsync(id);
+            if (modelo == null) return NotFound();
+
+            var dto = new ModeloReadDto { Id = modelo.Id, Nome = modelo.Nome, Fabricante = modelo.Fabricante };
+            return Ok(dto);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Modelo>> Create(Modelo modelo)
+        public async Task<ActionResult<ModeloReadDto>> CreateModelo(ModeloCreateDto createDto)
         {
-            _context.Modelos.Add(modelo);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetById), new { id = modelo.Id }, modelo);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var modelo = new Modelo { Nome = createDto.Nome, Fabricante = createDto.Fabricante };
+            await _repo.AddModeloAsync(modelo);
+            await _repo.SaveChangesAsync();
+
+            var dto = new ModeloReadDto { Id = modelo.Id, Nome = modelo.Nome, Fabricante = modelo.Fabricante };
+            return CreatedAtRoute("GetModeloById", new { id = modelo.Id }, dto);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, Modelo modelo)
+        public async Task<IActionResult> UpdateModelo(int id, ModeloCreateDto updateDto)
         {
-            if (id != modelo.Id) return BadRequest();
-            _context.Entry(modelo).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var modelo = await _repo.GetModeloByIdAsync(id);
+            if (modelo == null) return NotFound();
+
+            modelo.Nome = updateDto.Nome;
+            modelo.Fabricante = updateDto.Fabricante;
+
+            await _repo.SaveChangesAsync();
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteModelo(int id)
         {
-            var modelo = await _context.Modelos.FindAsync(id);
-            if (modelo is null) return NotFound();
-            _context.Modelos.Remove(modelo);
-            await _context.SaveChangesAsync();
+            var modelo = await _repo.GetModeloByIdAsync(id);
+            if (modelo == null) return NotFound();
+
+            _repo.DeleteModelo(modelo);
+            await _repo.SaveChangesAsync();
             return NoContent();
         }
     }

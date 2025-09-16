@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>API_NET</name>
+    </assembly>
+    <members>
+        <member name="M:Sprint1.Controllers.MotoController.GetMotos(System.Int32,System.Int32)">
+            <summary>
+            Lista motos com paginação.
+            </summary>
+        </member>
+        <member name="M:Sprint1.Controllers.MotoController.GetMotoById(System.Int32)">
+            <summary>
+            Obtém uma moto por id.
+            </summary>
+        </member>
+        <member name="M:Sprint1.Controllers.MotoController.CreateMoto(Sprint1.Dtos.MotoCreateDto)">
+            <summary>
+            Cria uma nova moto.
+            </summary>
+        </member>
+        <member name="M:Sprint1.Controllers.MotoController.UpdateMoto(System.Int32,Sprint1.Dtos.MotoCreateDto)">
+            <summary>
+            Atualiza uma moto.
+            </summary>
+        </member>
+        <member name="M:Sprint1.Controllers.MotoController.DeleteMoto(System.Int32)">
+            <summary>
+            Deleta uma moto.
+            </summary>
+        </member>
+    </members>
+</doc>
