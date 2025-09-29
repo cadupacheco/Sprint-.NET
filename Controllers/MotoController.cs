@@ -21,7 +21,15 @@ namespace Sprint1.Controllers
             _repo = repo;
         }
 
+        /// <summary>
+        /// Lista todas as motos com paginação
+        /// </summary>
+        /// <param name="pageNumber">Número da página (padrão: 1)</param>
+        /// <param name="pageSize">Itens por página (padrão: 10)</param>
+        /// <returns>Lista paginada de motos</returns>
+        /// <response code="200">Lista de motos retornada com sucesso</response>
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<MotoReadDto>), 200)]
         public async Task<ActionResult<IEnumerable<MotoReadDto>>> GetMotos([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             var motos = await _repo.GetMotosPagedAsync(pageNumber, pageSize);
@@ -39,14 +47,13 @@ namespace Sprint1.Controllers
                 NomeModelo = m.Modelo?.Nome,
                 NomePatio = m.Patio?.Nome,
                 
-                // Campos compatíveis com o app mobile
                 Model = m.Modelo?.Nome ?? "Modelo não informado",
                 Plate = m.Placa,
-                Status = "disponível", // Status padrão
-                BatteryLevel = 85, // Nível da bateria padrão
-                FuelLevel = 90, // Nível de combustível padrão
-                Location = new { x = -23.5505, y = -46.6333 }, // São Paulo padrão
-                Mileage = 15000, // Quilometragem padrão
+                Status = "disponível",
+                BatteryLevel = 85,
+                FuelLevel = 90,
+                Location = new { x = -23.5505, y = -46.6333 },
+                Mileage = 15000,
                 TechnicalInfo = "Informações técnicas da moto",
                 NextMaintenanceDate = DateTime.Now.AddDays(30).ToString("yyyy-MM-dd"),
                 AssignedBranch = "São Paulo Centro",
@@ -63,7 +70,16 @@ namespace Sprint1.Controllers
             return Ok(dtos);
         }
 
+        /// <summary>
+        /// Busca uma moto específica por ID
+        /// </summary>
+        /// <param name="id">ID da moto</param>
+        /// <returns>Dados da moto solicitada</returns>
+        /// <response code="200">Moto encontrada</response>
+        /// <response code="404">Moto não encontrada</response>
         [HttpGet("{id}", Name = "GetMotoById")]
+        [ProducesResponseType(typeof(MotoReadDto), 200)]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<MotoReadDto>> GetMotoById(int id)
         {
             var moto = await _repo.GetMotoByIdAsync(id);
@@ -80,7 +96,6 @@ namespace Sprint1.Controllers
                 NomeModelo = moto.Modelo?.Nome,
                 NomePatio = moto.Patio?.Nome,
                 
-                // Campos compatíveis com o app mobile
                 Model = moto.Modelo?.Nome ?? "Modelo não informado",
                 Plate = moto.Placa,
                 Status = "disponível",
@@ -104,7 +119,16 @@ namespace Sprint1.Controllers
             return Ok(dto);
         }
 
+        /// <summary>
+        /// Cria uma nova moto
+        /// </summary>
+        /// <param name="createDto">Dados da moto a ser criada</param>
+        /// <returns>Moto criada com sucesso</returns>
+        /// <response code="201">Moto criada com sucesso</response>
+        /// <response code="400">Dados inválidos</response>
         [HttpPost]
+        [ProducesResponseType(typeof(MotoReadDto), 201)]
+        [ProducesResponseType(400)]
         public async Task<ActionResult<MotoReadDto>> CreateMoto(MotoCreateDto createDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -120,7 +144,6 @@ namespace Sprint1.Controllers
             await _repo.AddMotoAsync(moto);
             await _repo.SaveChangesAsync();
 
-            // Recarregar com includes
             moto = await _repo.GetMotoByIdAsync(moto.Id);
 
             var dto = new MotoReadDto
@@ -134,7 +157,6 @@ namespace Sprint1.Controllers
                 NomeModelo = moto.Modelo?.Nome,
                 NomePatio = moto.Patio?.Nome,
                 
-                // Campos compatíveis com o app mobile
                 Model = moto.Modelo?.Nome ?? "Modelo não informado",
                 Plate = moto.Placa,
                 Status = "disponível",
@@ -151,7 +173,19 @@ namespace Sprint1.Controllers
             return CreatedAtRoute("GetMotoById", new { id = moto.Id }, dto);
         }
 
+        /// <summary>
+        /// Atualiza uma moto existente
+        /// </summary>
+        /// <param name="id">ID da moto a ser atualizada</param>
+        /// <param name="updateDto">Dados atualizados da moto</param>
+        /// <returns>Confirmação da atualização</returns>
+        /// <response code="204">Moto atualizada com sucesso</response>
+        /// <response code="400">Dados inválidos</response>
+        /// <response code="404">Moto não encontrada</response>
         [HttpPut("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> UpdateMoto(int id, MotoCreateDto updateDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -168,7 +202,16 @@ namespace Sprint1.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Remove uma moto do sistema
+        /// </summary>
+        /// <param name="id">ID da moto a ser removida</param>
+        /// <returns>Confirmação da exclusão</returns>
+        /// <response code="204">Moto removida com sucesso</response>
+        /// <response code="404">Moto não encontrada</response>
         [HttpDelete("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
         public async Task<IActionResult> DeleteMoto(int id)
         {
             var moto = await _repo.GetMotoByIdAsync(id);

@@ -4,5 +4,175 @@
         <name>API_NET</name>
     </assembly>
     <members>
+        <member name="M:Sprint1.Controllers.ModeloController.GetModelos(System.Int32,System.Int32)">
+            <summary>
+            Lista todos os modelos de motos com paginação
+            </summary>
+            <param name="pageNumber">Número da página (padrão: 1)</param>
+            <param name="pageSize">Itens por página (padrão: 10)</param>
+            <returns>Lista paginada de modelos</returns>
+            <response code="200">Lista de modelos retornada com sucesso</response>
+        </member>
+        <member name="M:Sprint1.Controllers.ModeloController.GetModeloById(System.Int32)">
+            <summary>
+            Busca um modelo específico por ID
+            </summary>
+            <param name="id">ID do modelo</param>
+            <returns>Dados do modelo solicitado</returns>
+            <response code="200">Modelo encontrado</response>
+            <response code="404">Modelo não encontrado</response>
+        </member>
+        <member name="M:Sprint1.Controllers.ModeloController.CreateModelo(Sprint1.Dtos.ModeloCreateDto)">
+            <summary>
+            Cria um novo modelo de moto
+            </summary>
+            <param name="createDto">Dados do modelo a ser criado</param>
+            <returns>Modelo criado com sucesso</returns>
+            <response code="201">Modelo criado com sucesso</response>
+            <response code="400">Dados inválidos</response>
+        </member>
+        <member name="M:Sprint1.Controllers.ModeloController.UpdateModelo(System.Int32,Sprint1.Dtos.ModeloCreateDto)">
+            <summary>
+            Atualiza um modelo existente
+            </summary>
+            <param name="id">ID do modelo a ser atualizado</param>
+            <param name="updateDto">Dados atualizados do modelo</param>
+            <returns>Confirmação da atualização</returns>
+            <response code="204">Modelo atualizado com sucesso</response>
+            <response code="400">Dados inválidos</response>
+            <response code="404">Modelo não encontrado</response>
+        </member>
+        <member name="M:Sprint1.Controllers.ModeloController.DeleteModelo(System.Int32)">
+            <summary>
+            Remove um modelo do sistema
+            </summary>
+            <param name="id">ID do modelo a ser removido</param>
+            <returns>Confirmação da exclusão</returns>
+            <response code="204">Modelo removido com sucesso</response>
+            <response code="404">Modelo não encontrado</response>
+        </member>
+        <member name="M:Sprint1.Controllers.MotoController.GetMotos(System.Int32,System.Int32)">
+            <summary>
+            Lista todas as motos com paginação
+            </summary>
+            <param name="pageNumber">Número da página (padrão: 1)</param>
+            <param name="pageSize">Itens por página (padrão: 10)</param>
+            <returns>Lista paginada de motos</returns>
+            <response code="200">Lista de motos retornada com sucesso</response>
+        </member>
+        <member name="M:Sprint1.Controllers.MotoController.GetMotoById(System.Int32)">
+            <summary>
+            Busca uma moto específica por ID
+            </summary>
+            <param name="id">ID da moto</param>
+            <returns>Dados da moto solicitada</returns>
+            <response code="200">Moto encontrada</response>
+            <response code="404">Moto não encontrada</response>
+        </member>
+        <member name="M:Sprint1.Controllers.MotoController.CreateMoto(Sprint1.Dtos.MotoCreateDto)">
+            <summary>
+            Cria uma nova moto
+            </summary>
+            <param name="createDto">Dados da moto a ser criada</param>
+            <returns>Moto criada com sucesso</returns>
+            <response code="201">Moto criada com sucesso</response>
+            <response code="400">Dados inválidos</response>
+        </member>
+        <member name="M:Sprint1.Controllers.MotoController.UpdateMoto(System.Int32,Sprint1.Dtos.MotoCreateDto)">
+            <summary>
+            Atualiza uma moto existente
+            </summary>
+            <param name="id">ID da moto a ser atualizada</param>
+            <param name="updateDto">Dados atualizados da moto</param>
+            <returns>Confirmação da atualização</returns>
+            <response code="204">Moto atualizada com sucesso</response>
+            <response code="400">Dados inválidos</response>
+            <response code="404">Moto não encontrada</response>
+        </member>
+        <member name="M:Sprint1.Controllers.MotoController.DeleteMoto(System.Int32)">
+            <summary>
+            Remove uma moto do sistema
+            </summary>
+            <param name="id">ID da moto a ser removida</param>
+            <returns>Confirmação da exclusão</returns>
+            <response code="204">Moto removida com sucesso</response>
+            <response code="404">Moto não encontrada</response>
+        </member>
+        <member name="M:Sprint1.Controllers.PatioController.GetPatios(System.Int32,System.Int32)">
+            <summary>
+            Lista todos os pátios com paginação
+            </summary>
+            <param name="pageNumber">Número da página (padrão: 1)</param>
+            <param name="pageSize">Itens por página (padrão: 10)</param>
+            <returns>Lista paginada de pátios</returns>
+            <response code="200">Lista de pátios retornada com sucesso</response>
+        </member>
+        <member name="M:Sprint1.Controllers.PatioController.GetPatioById(System.Int32)">
+            <summary>
+            Busca um pátio específico por ID
+            </summary>
+            <param name="id">ID do pátio</param>
+            <returns>Dados do pátio solicitado</returns>
+            <response code="200">Pátio encontrado</response>
+            <response code="404">Pátio não encontrado</response>
+        </member>
+        <member name="M:Sprint1.Controllers.PatioController.CreatePatio(Sprint1.Dtos.PatioCreateDto)">
+            <summary>
+            Cria um novo pátio
+            </summary>
+            <param name="createDto">Dados do pátio a ser criado</param>
+            <returns>Pátio criado com sucesso</returns>
+            <response code="201">Pátio criado com sucesso</response>
+            <response code="400">Dados inválidos</response>
+        </member>
+        <member name="M:Sprint1.Controllers.PatioController.UpdatePatio(System.Int32,Sprint1.Dtos.PatioCreateDto)">
+            <summary>
+            Atualiza um pátio existente
+            </summary>
+            <param name="id">ID do pátio a ser atualizado</param>
+            <param name="updateDto">Dados atualizados do pátio</param>
+            <returns>Confirmação da atualização</returns>
+            <response code="204">Pátio atualizado com sucesso</response>
+            <response code="400">Dados inválidos</response>
+            <response code="404">Pátio não encontrado</response>
+        </member>
+        <member name="M:Sprint1.Controllers.PatioController.DeletePatio(System.Int32)">
+            <summary>
+            Remove um pátio do sistema
+            </summary>
+            <param name="id">ID do pátio a ser removido</param>
+            <returns>Confirmação da exclusão</returns>
+            <response code="204">Pátio removido com sucesso</response>
+            <response code="404">Pátio não encontrado</response>
+        </member>
+        <member name="T:Sprint1.Dtos.MotoCreateDto">
+            <summary>
+            Dados necessários para criar uma nova moto
+            </summary>
+        </member>
+        <member name="P:Sprint1.Dtos.MotoCreateDto.Placa">
+            <summary>
+            Placa da moto (formato ABC-1234)
+            </summary>
+            <example>ABC-1234</example>
+        </member>
+        <member name="P:Sprint1.Dtos.MotoCreateDto.Cor">
+            <summary>
+            Cor da moto
+            </summary>
+            <example>Vermelha</example>
+        </member>
+        <member name="P:Sprint1.Dtos.MotoCreateDto.ModeloId">
+            <summary>
+            ID do modelo da moto
+            </summary>
+            <example>1</example>
+        </member>
+        <member name="P:Sprint1.Dtos.MotoCreateDto.PatioId">
+            <summary>
+            ID do pátio onde a moto ficará
+            </summary>
+            <example>1</example>
+        </member>
     </members>
 </doc>

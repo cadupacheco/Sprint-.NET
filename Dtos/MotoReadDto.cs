@@ -6,7 +6,6 @@ namespace Sprint1.Dtos
 {
     public class MotoReadDto
     {
-        // Campos originais da API .NET
         public int Id { get; set; }
         public string? Placa { get; set; }
         public string? Cor { get; set; }
@@ -17,7 +16,6 @@ namespace Sprint1.Dtos
         public int PatioId { get; set; }
         public List<LinkDto>? Links { get; set; }
 
-        // Campos compatíveis com o app mobile (para retrocompatibilidade)
         public string? Model { get; set; }
         public string? Plate { get; set; }
         public string? Status { get; set; }
