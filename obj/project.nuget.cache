@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gr6krm8BseY=",
+  "dgSpecHash": "sYqnJ45vXw8=",
   "success": true,
-  "projectFilePath": "C:\\Users\\cadup\\Documents\\Aulas fiap\\Fiap 2025\\Sprint3\\Development with .NET\\API_NET.csproj",
+  "projectFilePath": "C:\\Users\\cadup\\Documents\\Aulas fiap\\Fiap 2025\\Sprint3\\Development with .NET (F)\\API_NET.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cadup\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\cadup\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",

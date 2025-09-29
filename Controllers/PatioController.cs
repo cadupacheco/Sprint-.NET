@@ -24,7 +24,7 @@ namespace Sprint1.Controllers
         {
             var patios = await _repo.GetPatiosPagedAsync(pageNumber, pageSize);
             var total = await _repo.GetCountAsync();
-            Response.Headers.Add("X-Total-Count", total.ToString());
+            Response.Headers["X-Total-Count"] = total.ToString();
 
             var dtos = patios.Select(p => new PatioReadDto { Id = p.Id, Nome = p.Nome, Localizacao = p.Localizacao }).ToList();
             return Ok(dtos);

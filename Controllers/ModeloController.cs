@@ -24,7 +24,7 @@ namespace Sprint1.Controllers
         {
             var modelos = await _repo.GetModelosPagedAsync(pageNumber, pageSize);
             var total = await _repo.GetCountAsync();
-            Response.Headers.Add("X-Total-Count", total.ToString());
+            Response.Headers["X-Total-Count"] = total.ToString();
 
             var dtos = modelos.Select(m => new ModeloReadDto
             {

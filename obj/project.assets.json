@@ -3222,11 +3222,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\cadup\\Documents\\Aulas fiap\\Fiap 2025\\Sprint3\\Development with .NET\\API_NET.csproj",
+      "projectUniqueName": "C:\\Users\\cadup\\Documents\\Aulas fiap\\Fiap 2025\\Sprint3\\Development with .NET (F)\\API_NET.csproj",
       "projectName": "API_NET",
-      "projectPath": "C:\\Users\\cadup\\Documents\\Aulas fiap\\Fiap 2025\\Sprint3\\Development with .NET\\API_NET.csproj",
+      "projectPath": "C:\\Users\\cadup\\Documents\\Aulas fiap\\Fiap 2025\\Sprint3\\Development with .NET (F)\\API_NET.csproj",
       "packagesPath": "C:\\Users\\cadup\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\cadup\\Documents\\Aulas fiap\\Fiap 2025\\Sprint3\\Development with .NET\\obj\\",
+      "outputPath": "C:\\Users\\cadup\\Documents\\Aulas fiap\\Fiap 2025\\Sprint3\\Development with .NET (F)\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
