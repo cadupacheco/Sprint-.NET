@@ -4,6 +4,13 @@
         <name>API_NET</name>
     </assembly>
     <members>
+        <member name="M:Sprint1.Controllers.HealthController.Get">
+            <summary>
+            Verifica se a API está funcionando
+            </summary>
+            <returns>Status da API</returns>
+            <response code="200">API está funcionando</response>
+        </member>
         <member name="M:Sprint1.Controllers.ModeloController.GetModelos(System.Int32,System.Int32)">
             <summary>
             Lista todos os modelos de motos com paginação
@@ -162,6 +169,60 @@
             </summary>
             <example>Vermelha</example>
         </member>
+        <member name="P:Sprint1.Dtos.MotoCreateDto.Status">
+            <summary>
+            Status da moto (available, maintenance, rented, out_of_service)
+            </summary>
+            <example>available</example>
+        </member>
+        <member name="P:Sprint1.Dtos.MotoCreateDto.LocationX">
+            <summary>
+            Coordenada X (latitude) da localização da moto
+            </summary>
+            <example>-23.5505</example>
+        </member>
+        <member name="P:Sprint1.Dtos.MotoCreateDto.LocationY">
+            <summary>
+            Coordenada Y (longitude) da localização da moto
+            </summary>
+            <example>-46.6333</example>
+        </member>
+        <member name="P:Sprint1.Dtos.MotoCreateDto.BatteryLevel">
+            <summary>
+            Nível da bateria (0-100)
+            </summary>
+            <example>85</example>
+        </member>
+        <member name="P:Sprint1.Dtos.MotoCreateDto.FuelLevel">
+            <summary>
+            Nível de combustível (0-100)
+            </summary>
+            <example>75</example>
+        </member>
+        <member name="P:Sprint1.Dtos.MotoCreateDto.Mileage">
+            <summary>
+            Quilometragem da moto
+            </summary>
+            <example>15000</example>
+        </member>
+        <member name="P:Sprint1.Dtos.MotoCreateDto.NextMaintenanceDate">
+            <summary>
+            Data da próxima manutenção (ISO 8601)
+            </summary>
+            <example>2025-02-15T10:00:00Z</example>
+        </member>
+        <member name="P:Sprint1.Dtos.MotoCreateDto.AssignedBranch">
+            <summary>
+            Filial responsável pela moto
+            </summary>
+            <example>São Paulo Centro</example>
+        </member>
+        <member name="P:Sprint1.Dtos.MotoCreateDto.TechnicalInfo">
+            <summary>
+            Informações técnicas adicionais da moto
+            </summary>
+            <example>Bateria: 85%, Última manutenção: 15/01/2025</example>
+        </member>
         <member name="P:Sprint1.Dtos.MotoCreateDto.ModeloId">
             <summary>
             ID do modelo da moto
@@ -173,6 +234,30 @@
             ID do pátio onde a moto ficará
             </summary>
             <example>1</example>
+        </member>
+        <member name="T:API_NET.Migrations.AddMobileCompatibilityFields">
+            <inheritdoc />
+        </member>
+        <member name="M:API_NET.Migrations.AddMobileCompatibilityFields.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:API_NET.Migrations.AddMobileCompatibilityFields.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:API_NET.Migrations.AddMobileCompatibilityFields.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:API_NET.Migrations.InitialOracleSetup">
+            <inheritdoc />
+        </member>
+        <member name="M:API_NET.Migrations.InitialOracleSetup.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:API_NET.Migrations.InitialOracleSetup.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:API_NET.Migrations.InitialOracleSetup.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
         </member>
     </members>
 </doc>

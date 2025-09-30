@@ -9,8 +9,8 @@ namespace Sprint1.Examples
         {
             return new ModeloCreateDto
             {
-                Nome = "CB 500",
-                Fabricante = "Honda"
+                Nome = "VMoto VS1",
+                Fabricante = "VMoto"
             };
         }
     }

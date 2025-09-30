@@ -47,17 +47,16 @@ namespace Sprint1.Controllers
                 NomeModelo = m.Modelo?.Nome,
                 NomePatio = m.Patio?.Nome,
                 
-                Model = m.Modelo?.Nome ?? "Modelo não informado",
-                Plate = m.Placa,
-                Status = "disponível",
-                BatteryLevel = 85,
-                FuelLevel = 90,
-                Location = new { x = -23.5505, y = -46.6333 },
-                Mileage = 15000,
-                TechnicalInfo = "Informações técnicas da moto",
-                NextMaintenanceDate = DateTime.Now.AddDays(30).ToString("yyyy-MM-dd"),
-                AssignedBranch = "São Paulo Centro",
-                LastUpdate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"),
+                // Campos extras para o app mobile
+                Status = m.Status ?? "available",
+                BatteryLevel = m.BatteryLevel,
+                FuelLevel = m.FuelLevel,
+                Location = new { x = m.LocationX, y = m.LocationY },
+                Mileage = m.Mileage,
+                TechnicalInfo = m.TechnicalInfo,
+                NextMaintenanceDate = m.NextMaintenanceDate,
+                AssignedBranch = m.AssignedBranch,
+                LastUpdate = m.LastUpdate.ToString("yyyy-MM-ddTHH:mm:ssZ"),
                 
                 Links = new List<LinkDto>
                 {
@@ -96,17 +95,16 @@ namespace Sprint1.Controllers
                 NomeModelo = moto.Modelo?.Nome,
                 NomePatio = moto.Patio?.Nome,
                 
-                Model = moto.Modelo?.Nome ?? "Modelo não informado",
-                Plate = moto.Placa,
-                Status = "disponível",
-                BatteryLevel = 85,
-                FuelLevel = 90,
-                Location = new { x = -23.5505, y = -46.6333 },
-                Mileage = 15000,
-                TechnicalInfo = "Informações técnicas da moto",
-                NextMaintenanceDate = DateTime.Now.AddDays(30).ToString("yyyy-MM-dd"),
-                AssignedBranch = "São Paulo Centro",
-                LastUpdate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"),
+                // Campos extras para o app mobile
+                Status = moto.Status ?? "available",
+                BatteryLevel = moto.BatteryLevel,
+                FuelLevel = moto.FuelLevel,
+                Location = new { x = moto.LocationX, y = moto.LocationY },
+                Mileage = moto.Mileage,
+                TechnicalInfo = moto.TechnicalInfo,
+                NextMaintenanceDate = moto.NextMaintenanceDate,
+                AssignedBranch = moto.AssignedBranch,
+                LastUpdate = moto.LastUpdate.ToString("yyyy-MM-ddTHH:mm:ssZ"),
                 
                 Links = new List<LinkDto>
                 {
@@ -137,8 +135,20 @@ namespace Sprint1.Controllers
             { 
                 Placa = createDto.Placa, 
                 Cor = createDto.Cor,
+                Status = createDto.Status,
+                LocationX = createDto.LocationX,
+                LocationY = createDto.LocationY,
+                BatteryLevel = createDto.BatteryLevel,
+                FuelLevel = createDto.FuelLevel,
+                Mileage = createDto.Mileage,
+                NextMaintenanceDate = createDto.NextMaintenanceDate,
+                AssignedBranch = createDto.AssignedBranch,
+                TechnicalInfo = createDto.TechnicalInfo,
                 ModeloId = createDto.ModeloId,
-                PatioId = createDto.PatioId
+                PatioId = createDto.PatioId,
+                LastUpdate = DateTime.UtcNow,
+                Modelo = null!,
+                Patio = null!
             };
             
             await _repo.AddMotoAsync(moto);
@@ -157,17 +167,16 @@ namespace Sprint1.Controllers
                 NomeModelo = moto.Modelo?.Nome,
                 NomePatio = moto.Patio?.Nome,
                 
-                Model = moto.Modelo?.Nome ?? "Modelo não informado",
-                Plate = moto.Placa,
-                Status = "disponível",
-                BatteryLevel = 85,
-                FuelLevel = 90,
-                Location = new { x = -23.5505, y = -46.6333 },
-                Mileage = 15000,
-                TechnicalInfo = "Informações técnicas da moto",
-                NextMaintenanceDate = DateTime.Now.AddDays(30).ToString("yyyy-MM-dd"),
-                AssignedBranch = "São Paulo Centro",
-                LastUpdate = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss")
+                // Campos extras para o app mobile
+                Status = moto.Status ?? "available",
+                BatteryLevel = moto.BatteryLevel,
+                FuelLevel = moto.FuelLevel,
+                Location = new { x = moto.LocationX, y = moto.LocationY },
+                Mileage = moto.Mileage,
+                TechnicalInfo = moto.TechnicalInfo,
+                NextMaintenanceDate = moto.NextMaintenanceDate,
+                AssignedBranch = moto.AssignedBranch,
+                LastUpdate = moto.LastUpdate.ToString("yyyy-MM-ddTHH:mm:ssZ")
             };
 
             return CreatedAtRoute("GetMotoById", new { id = moto.Id }, dto);
@@ -195,8 +204,18 @@ namespace Sprint1.Controllers
 
             moto.Placa = updateDto.Placa;
             moto.Cor = updateDto.Cor;
+            moto.Status = updateDto.Status;
+            moto.LocationX = updateDto.LocationX;
+            moto.LocationY = updateDto.LocationY;
+            moto.BatteryLevel = updateDto.BatteryLevel;
+            moto.FuelLevel = updateDto.FuelLevel;
+            moto.Mileage = updateDto.Mileage;
+            moto.NextMaintenanceDate = updateDto.NextMaintenanceDate;
+            moto.AssignedBranch = updateDto.AssignedBranch;
+            moto.TechnicalInfo = updateDto.TechnicalInfo;
             moto.ModeloId = updateDto.ModeloId;
             moto.PatioId = updateDto.PatioId;
+            moto.LastUpdate = DateTime.UtcNow;
 
             await _repo.SaveChangesAsync();
             return NoContent();

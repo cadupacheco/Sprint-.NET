@@ -16,19 +16,31 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseOracle(builder.Configuration.GetConnectionString("OracleConnection")));
 
 builder.Services.AddScoped<IMotoRepository, MotoRepository>();
 builder.Services.AddScoped<IModeloRepository, ModeloRepository>();
 builder.Services.AddScoped<IPatioRepository, PatioRepository>();
 
+// CORS para React Native
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ReactNativePolicy", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .WithExposedHeaders("X-Total-Count");
+    });
+});
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "API de Gerenciamento (Motos / Modelos / Pátios)",
+        Title = "API de Motos Elétricas",
         Version = "v1",
-        Description = "Exemplo com CRUD, paginação e HATEOAS"
+        Description = "API para gerenciamento de motos elétricas (VMoto VS1, Super Soco CPX, VMoto Super Soco TSX)"
     });
 
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -49,6 +61,9 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.Migrate();
+    
+    // Seed dos dados
+    SeedData.Initialize(db);
 }
 
 if (app.Environment.IsDevelopment())
@@ -58,7 +73,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection(); // Comentado para evitar problemas com certificado
+app.UseCors("ReactNativePolicy");
 app.UseAuthorization();
 app.MapControllers();
 
