@@ -11,6 +11,12 @@
             <returns>Status da API</returns>
             <response code="200">API está funcionando</response>
         </member>
+        <member name="M:Sprint1.Controllers.HealthController.TestOracleConnection">
+            <summary>
+            Testa a conexão com o banco Oracle
+            </summary>
+            <returns>Status da conexão Oracle</returns>
+        </member>
         <member name="M:Sprint1.Controllers.ModeloController.GetModelos(System.Int32,System.Int32)">
             <summary>
             Lista todos os modelos de motos com paginação

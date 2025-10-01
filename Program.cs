@@ -57,14 +57,15 @@ builder.Services.AddSwaggerExamplesFromAssemblyOf<Program>();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    db.Database.Migrate();
-    
-    // Seed dos dados
-    SeedData.Initialize(db);
-}
+// Comentado temporariamente para testar conexão sem migração
+// using (var scope = app.Services.CreateScope())
+// {
+//     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+//     db.Database.Migrate();
+//     
+//     // Seed dos dados
+//     SeedData.Initialize(db);
+// }
 
 if (app.Environment.IsDevelopment())
 {
